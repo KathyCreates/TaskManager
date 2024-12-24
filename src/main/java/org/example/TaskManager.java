@@ -1,6 +1,5 @@
 package org.example;
 
-import javafx.concurrent.Task;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -28,4 +27,19 @@ public class TaskManager {
             scanner.nextLine();
         }
     }
+
+    private void addTask(Scanner scanner) {
+        System.out.print("Enter task title: ");
+        String title = scanner.nextLine();
+
+        System.out.print("Enter deadline (yyyy-MM-dd): ");
+        LocalDate deadline = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Enter priority (Low, Medium, High): ");
+        String priority = scanner.nextLine();
+
+        tasks.add(new Task(title, deadline, priority, false));
+        System.out.println("Task added successfully.");
+    }
 }
+
