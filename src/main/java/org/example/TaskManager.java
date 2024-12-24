@@ -92,5 +92,22 @@ public class TaskManager {
 
         System.out.println("Task updated successfully.");
     }
+
+    private void deleteTask(Scanner scanner) {
+        viewTask();
+        if (tasks.isEmpty()) return;
+
+        System.out.print("Enter task ID to delete: ");
+        int id = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if (id < 0 || id >= tasks.size()) {
+            System.out.println("Invalid task ID");
+            return;
+        }
+
+        tasks.remove(id);
+        System.out.println("Task deleted successfully.");
+    }
 }
 
