@@ -42,7 +42,7 @@ public class TaskManager {
         System.out.println("Task added successfully.");
     }
 
-    private void viewTask(Scanner scanner) {
+    private void viewTask() {
         if(tasks.isEmpty()) {
             System.out.println("There are no tasks to view");
             return;
@@ -56,6 +56,41 @@ public class TaskManager {
             System.out.printf("%-5d %-20s %-15s %-10s %-10s\n",
                     i + 1, task.getTitle(), task.getDeadline(), task.getPriority(), task.isCompleted() ? "Completed" : "Pending");
         }
+    }
+
+    private void editTask(Scanner scanner) {
+        viewTask();
+        if (tasks.isEmpty()) return;
+
+        System.out.print("Enter task ID to edit: ");
+        int id = scanner.nextInt() - 1;
+        scanner.nextLine();
+
+        if (id < 0 || id >= tasks.size()) {
+            System.out.println("Invalid task ID");
+            return;
+        }
+
+        Task task = tasks.get(id);
+        System.out.println("Edited task: " + task.getTitle());
+
+        System.out.print("Enter nem title (leave blanck to keep current): ");
+        String newTitle = scanner.nextLine();
+        if (!newTitle.isEmpty()) task.setTitle(newTitle);
+
+        System.out.print("Enter new deadline (yyyy-MM-dd, leave blank to keep current): ");
+        String newDeadline = scanner.nextLine();
+        if (!newDeadline.isEmpty()) task.setDeadline(LocalDate.parse(newDeadline));
+
+        System.out.print("Enter new priority (Low, Medium, High, leave blank to keep current): ");
+        String newPriority = scanner.nextLine();
+        if (!newPriority.isEmpty()) task.setPriority(newPriority);
+
+        System.out.print("Mark as completed? (yes/no): ");
+        String completed = scanner.nextLine();
+        if (completed.equalsIgnoreCase("yes")) task.setCompleted(true);
+
+        System.out.println("Task updated successfully.");
     }
 }
 
