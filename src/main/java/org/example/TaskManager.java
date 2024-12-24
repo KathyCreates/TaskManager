@@ -41,5 +41,21 @@ public class TaskManager {
         tasks.add(new Task(title, deadline, priority, false));
         System.out.println("Task added successfully.");
     }
+
+    private void viewTask(Scanner scanner) {
+        if(tasks.isEmpty()) {
+            System.out.println("There are no tasks to view");
+            return;
+        }
+
+        tasks.sort(Comparator.comparing(Task::getDeadline).thenComparing(Task::getPriority));
+
+        System.out.printf("\n%-5s %-20s %-15s %-10s %-10s\n", "ID", "Title", "Deadline", "Priority", "Status");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            System.out.printf("%-5d %-20s %-15s %-10s %-10s\n",
+                    i + 1, task.getTitle(), task.getDeadline(), task.getPriority(), task.isCompleted() ? "Completed" : "Pending");
+        }
+    }
 }
 
